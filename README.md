@@ -87,6 +87,10 @@ wechat-article-collector/
 - 本地运行生成的 `data/` 缓存、日志、PDF、图片和私有 `config.yaml` 均不会纳入 Git 提交。
 - 公开仓库只保存可复现的代码，不包含个人路径、Google Drive 路径或本地文件。
 
+## 开源协议
+
+本项目采用 **MIT License**，详见 `LICENSE` 文件。
+
 ## AI 场景
 
 该项目适用于将微信公众号内容转成 AI 可消费知识：

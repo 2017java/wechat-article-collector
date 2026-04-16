@@ -21,3 +21,9 @@ config.yaml
 
 # Keep examples and source only
 !config.example.yaml
+
+# Ignore private planning and notes
+PRD.md
+PROJECT_MEMORY.md
+微信文章链接转换器-开发计划.md
+BUG解决.md

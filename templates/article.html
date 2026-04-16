@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    /* 中文排版优化：优先使用系统中文字体 */
+    body {
+      font-family: "Microsoft YaHei", "微软雅黑", "PingFang SC", "Noto Sans CJK SC", "SimSun", sans-serif;
+      font-size: 15px;
+      line-height: 1.85;
+      color: #333;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 30px;
+      word-break: break-word;
+    }
+
+    h1.article-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0 0 12px 0;
+      line-height: 1.4;
+      color: #111;
+    }
+
+    .meta {
+      color: #888;
+      font-size: 13px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .meta span + span::before {
+      content: " · ";
+    }
+
+    /* 正文内容 */
+    #article-content p {
+      margin: 12px 0;
+      text-align: justify;
+    }
+
+    #article-content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border-radius: 4px;
+    }
+
+    #article-content blockquote {
+      border-left: 3px solid #07C160;
+      padding: 8px 16px;
+      margin: 16px 0;
+      color: #555;
+      background: #f9f9f9;
+    }
+
+    #article-content h1,
+    #article-content h2,
+    #article-content h3 {
+      margin: 24px 0 12px;
+      font-weight: 600;
+      color: #111;
+    }
+
+    #article-content h2 { font-size: 20px; }
+    #article-content h3 { font-size: 17px; }
+
+    #article-content code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 13px;
+      font-family: "Consolas", "Courier New", monospace;
+    }
+
+    #article-content pre {
+      background: #f5f5f5;
+      padding: 16px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+
+    #article-content pre code {
+      background: transparent;
+      padding: 0;
+    }
+
+    #article-content a {
+      color: #07C160;
+      text-decoration: none;
+    }
+
+    #article-content ul, #article-content ol {
+      padding-left: 24px;
+      margin: 12px 0;
+    }
+
+    #article-content li {
+      margin: 6px 0;
+    }
+
+    #article-content table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+
+    #article-content th, #article-content td {
+      border: 1px solid #ddd;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    #article-content th {
+      background: #f5f5f5;
+      font-weight: 600;
+    }
+
+    /* 页脚来源信息 */
+    .source-footer {
+      margin-top: 48px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+      font-size: 12px;
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="article-title">ARTICLE_TITLE</h1>
+  <div class="meta">
+    <span class="source">ARTICLE_SOURCE</span>
+    <span class="author">ARTICLE_AUTHOR</span>
+    <span class="date">ARTICLE_DATE</span>
+  </div>
+
+  <div id="article-content">
+ARTICLE_CONTENT
+  </div>
+
+  <div class="source-footer">
+    原文链接：ARTICLE_URL
+  </div>
+</body>
+</html>

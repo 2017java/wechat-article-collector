@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+requests
+beautifulsoup4
+markdownify
+playwright
+pyyaml
+python-multipart
+aiofiles
+pytest
+# Note: lxml 暂不支持 Python 3.14，使用内置 html.parser 替代
+# Note: weasyprint 在 Windows 需要 GTK+ 系统库，改用 playwright 生成 PDF

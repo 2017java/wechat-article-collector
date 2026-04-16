@@ -1,0 +1,23 @@
+# Ignore local data and temporary files
+.venv/
+__pycache__/
+.pytest_cache/
+*.log
+*.err
+*.pdf
+*.zip
+*.sqlite
+*.db
+.DS_Store
+Thumbs.db
+
+# Ignore runtime data and local cache
+/data/
+config.yaml
+
+# Ignore editor files
+.vscode/
+.idea/
+
+# Keep examples and source only
+!config.example.yaml

@@ -1,0 +1,29 @@
+# 默认保存路径，启动项目前请复制此文件为 config.yaml 并修改
+default_save_path: "D:/Articles/WeChat"
+
+# Obsidian vault 路径（留空则不启用 Obsidian 模式）
+obsidian_vault: ""
+
+# Obsidian 附件目录名
+obsidian_attachments_dir: "attachments"
+
+# Google Drive 同步目录（用于 NotebookLM，留空则不启用）
+google_drive_path: ""
+
+# 保存格式默认选项
+default_formats:
+  - md
+  - pdf
+
+# 服务端口
+server_port: 8686
+
+# 链接转换模块配置
+# 部署后填入公网地址，如 http://your-host:8686（末尾不加斜杠）
+server_base_url: ""
+
+# 文章缓存目录（相对于项目根目录）
+cache_dir: "data/articles"
+
+# 单次批量转换最大链接数
+max_batch_size: 20

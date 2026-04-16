@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv
+venv/
+
+# 测试
+tests/
+*.md
+
+# 开发工具
+.git/
+.gitignore
+.vscode/
+*.egg-info/
+
+# 运行时数据（通过 volume 挂载，不打包进镜像）
+data/
+
+# 日志
+*.log
+server.err

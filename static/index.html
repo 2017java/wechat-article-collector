@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>微信文章采集器</title>
+  <link rel="stylesheet" href="/static/style.css?v=2" />
+</head>
+<body>
+
+<!-- ── 顶部导航 ──────────────────────────────────────────── -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">🗂</div>
+    <span>微信文章采集器</span>
+  </div>
+  <button class="btn-settings" id="btn-settings">⚙ 设置</button>
+</header>
+
+<main>
+
+  <!-- ── 链接输入卡片 ──────────────────────────────────── -->
+  <div class="card">
+    <p class="card-title">粘贴文章链接</p>
+    <div class="url-row">
+      <input
+        id="url-input"
+        type="url"
+        placeholder="https://mp.weixin.qq.com/s/xxxxxxxxxxxxxxxx"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="btn btn-primary" id="btn-extract">提取预览</button>
+    </div>
+    <div id="status-bar"></div>
+  </div>
+
+  <!-- ── 文章预览卡片 ─────────────────────────────────── -->
+  <div class="card" id="preview-card">
+    <p class="card-title">文章信息</p>
+    <dl class="preview-meta">
+      <dt>标题</dt>
+      <dd id="pre-title">—</dd>
+      <dt>公众号</dt>
+      <dd id="pre-source">—</dd>
+      <dt>作者</dt>
+      <dd id="pre-author">—</dd>
+      <dt>发布日期</dt>
+      <dd id="pre-date">—</dd>
+      <dt>图片</dt>
+      <dd id="pre-images">—</dd>
+      <dt>字数</dt>
+      <dd id="pre-words">—</dd>
+    </dl>
+    <p class="preview-text" id="pre-text"></p>
+  </div>
+
+  <!-- ── 保存选项卡片 ─────────────────────────────────── -->
+  <div class="card">
+    <p class="card-title">保存选项</p>
+    <div class="options-row">
+      <div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:8px;">输出格式</p>
+        <div class="format-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="fmt-md" checked /> Markdown
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="fmt-pdf" checked /> PDF
+          </label>
+        </div>
+      </div>
+
+      <div class="path-group">
+        <label for="save-path">保存路径（留空使用默认路径）</label>
+        <input
+          id="save-path"
+          type="text"
+          placeholder="D:/Articles/WeChat"
+        />
+      </div>
+    </div>
+
+    <div class="save-row">
+      <button class="btn btn-primary" id="btn-save">💾 保存文章</button>
+    </div>
+  </div>
+
+  <!-- ── 保存历史卡片 ─────────────────────────────────── -->
+  <div class="card">
+    <div class="history-header">
+      <p class="card-title" style="margin-bottom:0">保存历史</p>
+      <button class="btn btn-danger" id="btn-clear-history" style="padding:6px 12px;font-size:12px;">清空</button>
+    </div>
+    <div id="history-list">
+      <p class="history-empty">暂无保存记录</p>
+    </div>
+  </div>
+
+  <!-- ── 链接转换卡片 ─────────────────────────────────── -->
+  <div class="card">
+    <p class="card-title">🔗 批量链接转换（供 AI Agent 直接阅读）</p>
+    <p class="convert-hint">每行粘贴一条微信文章链接，转换后得到可被 NotebookLM / ChatGPT / Claude 直接浏览的 URL。</p>
+    <textarea
+      id="convert-input"
+      placeholder="https://mp.weixin.qq.com/s/xxxxxxxx&#10;https://mp.weixin.qq.com/s/yyyyyyyy"
+      rows="4"
+      spellcheck="false"
+    ></textarea>
+    <div class="convert-actions">
+      <button class="btn btn-primary" id="btn-convert">⚡ 批量转换</button>
+      <button class="btn btn-outline" id="btn-load-cached">📋 查看已缓存</button>
+    </div>
+    <div id="convert-status"></div>
+    <div id="convert-results"></div>
+  </div>
+
+  <!-- ── 已缓存文章管理 ───────────────────────────────── -->
+  <div class="card" id="cached-card" style="display:none">
+    <div class="history-header">
+      <p class="card-title" style="margin-bottom:0">已缓存文章</p>
+      <button class="btn btn-outline" id="btn-refresh-cached" style="padding:6px 12px;font-size:12px;">刷新</button>
+    </div>
+    <div id="cached-list">
+      <p class="history-empty">暂无缓存</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── 设置 Modal ─────────────────────────────────────── -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">路径设置</h2>
+      <button class="btn-close" id="btn-close-modal">×</button>
+    </div>
+
+    <div class="form-group">
+      <label for="cfg-save-path">默认保存路径</label>
+      <input type="text" id="cfg-save-path" placeholder="D:/Articles/WeChat" />
+      <p class="hint">文章将以 <code>公众号/日期-标题/</code> 结构保存到此目录</p>
+    </div>
+
+    <div class="form-group">
+      <label for="cfg-obsidian">Obsidian Vault 路径（可选）</label>
+      <input type="text" id="cfg-obsidian" placeholder="D:/Obsidian/MyVault" />
+      <p class="hint">Markdown 文章将自动复制到 Vault 的 <code>WeChat/公众号/</code> 目录</p>
+    </div>
+
+    <div class="form-group">
+      <label for="cfg-gdrive">Google Drive 路径（可选，用于 NotebookLM）</label>
+      <input type="text" id="cfg-gdrive" placeholder="G:/My Drive" />
+      <p class="hint">PDF 将复制到此路径下的 <code>WeChat/</code> 目录，方便导入 NotebookLM</p>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="btn-cancel-modal">取消</button>
+      <button class="btn btn-primary" id="btn-save-modal">保存设置</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Toast ──────────────────────────────────────────── -->
+<div id="toast"></div>
+
+<script src="/static/app.js?v=2"></script>
+</body>
+</html>
